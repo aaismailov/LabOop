@@ -2,6 +2,7 @@
 #define VIEWWINDOW_H
 
 #include <QDialog>
+#include "Protein.h"
 
 namespace Ui {
 class ViewWindow;
@@ -13,7 +14,11 @@ class ViewWindow : public QDialog
 
 public:
     explicit ViewWindow(QWidget *parent = nullptr);
+    void insertData(Protein* collection, int size) const;
     ~ViewWindow();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::ViewWindow *ui;

@@ -1,4 +1,5 @@
 #include "basewindow.h"
+#include "firstwindow.h"
 #include <iostream>
 #include <ProteinogenicAminoAcid.h>
 #include <NonstandardAminoAcid.h>
@@ -88,8 +89,10 @@ int main(int argc, char *argv[])
     pToFile.addElem(paa6, 1);
     pToFile.addElem(paa7, 2);
     assert(pToFile.toFile("C:\\Qt\\Projects\\oop1\\BaseWindow\\to.txt")==0);
+    toScreen(pToFile);
     Protein pFromFile;
     assert(pFromFile.fromFile("C:\\Qt\\Projects\\oop1\\BaseWindow\\to.txt")==0);
+    toScreen(pFromFile);
     assert(pFromFile == pToFile); //Проверка на равенство записанной в файл и полученной из файла коллекций
 
     // Тестирование операции сложения, возвращающей результат сложения (с пересечением) двух белков (условие задачи)
@@ -104,8 +107,8 @@ int main(int argc, char *argv[])
     pFirst.addElem(paa9, 2);
     toScreen(pFirst);
     cout<<"-------"<<naa4.getName()<<endl;
-    pFirst.addTail(naa4);
-    pFirst.setIteratorIndex(1);
+    //pFirst.addTail(naa4);
+    //pFirst.setIteratorIndex(1);
     cout<<pFirst.getIteratorValue().getName()<<endl;
     toScreen(pFirst);
     cout<<pFirst.getIteratorValue().getName()<<endl;
