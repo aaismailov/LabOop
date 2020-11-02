@@ -21,6 +21,7 @@ int toScreen(Protein p) {
 }
 int main(int argc, char *argv[])
 {
+    cout<<"DTGUID_________________________________"<<endl;
     // Test ProteinogenicAminoAcid
     ProteinogenicAminoAcid paa1;
     assert(paa1.getName()=="");
@@ -106,19 +107,17 @@ int main(int argc, char *argv[])
     toScreen(pFirst);
     pFirst.addElem(paa9, 2);
     toScreen(pFirst);
-    cout<<"-------"<<naa4.getName()<<endl;
-    //pFirst.addTail(naa4);
+    pFirst.addTail(naa4);
+    cout<<"-------"<<paa9.getName()<<endl;
     //pFirst.setIteratorIndex(1);
     cout<<pFirst.getIteratorValue().getName()<<endl;
     toScreen(pFirst);
     cout<<pFirst.getIteratorValue().getName()<<endl;
     Protein pSecond; // MTC
     pSecond.addElem(paa9, 1);
-
     cout<<pSecond.getIteratorValue().getName()<<endl;
     // pSecond.addElem(naa4, 2);
     pSecond.addElem(paa11, 2);
-
     cout<<pSecond.getIteratorValue().getName()<<endl;
     Protein pThird; // CT
     pThird.addElem(paa11, 1);

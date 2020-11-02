@@ -1,24 +1,24 @@
 #include "NonstandardAminoAcid.h"
+#include "ProteinogenicAminoAcid.h"
 
 using namespace std;
 
-NonstandardAminoAcid::NonstandardAminoAcid(string name) {
-    this->name = name;
-}
-
-NonstandardAminoAcid::NonstandardAminoAcid(const NonstandardAminoAcid& naa) {
-    this->name = naa.name;
-}
-
 NonstandardAminoAcid::NonstandardAminoAcid() {
-    this->name = "";
+    //this->setName("");
 }
 
+NonstandardAminoAcid::NonstandardAminoAcid(string name): ProteinogenicAminoAcid(name, '\0') {
+}
+
+NonstandardAminoAcid::NonstandardAminoAcid(const NonstandardAminoAcid& naa): ProteinogenicAminoAcid(naa) {
+    // this->name = naa.name;
+}
+/*
 string NonstandardAminoAcid::getName() {
-    return this->name;
+    return this->getName();
 }
 
 void NonstandardAminoAcid::setName(string newName) {
-    this->name = newName;
+    this->setName(newName);
 }
-
+*/

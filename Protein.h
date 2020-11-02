@@ -5,7 +5,6 @@
 
 struct listaa {
     ProteinogenicAminoAcid field; // поле данных
-    NonstandardAminoAcid fieldnaa;
     struct listaa *next; // указатель на следующий элемент
     struct listaa *prev; // указатель на предыдущий элемент
 };
@@ -17,9 +16,7 @@ public:
 
     int addElem(ProteinogenicAminoAcid paa, int number);
     int addHead(ProteinogenicAminoAcid paa);
-    int addHead(NonstandardAminoAcid paa);
     int addTail(ProteinogenicAminoAcid paa);
-    int addTail(NonstandardAminoAcid paa);
 
     int remove(int index);
     int clean();

@@ -13,11 +13,8 @@ public:
     NonstandardAminoAcid(string name);
     NonstandardAminoAcid(const NonstandardAminoAcid& naa);
 
-    string getName();
-    void setName(string name);
-
-private:
-    string name;
+   // string getName();
+  //  void setName(string name);
 };
 
 #endif // NONSTANDARDAMINOACID_H

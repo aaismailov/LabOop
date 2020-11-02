@@ -71,32 +71,6 @@ int Protein::addElem(ProteinogenicAminoAcid paa, int pos) {
     return 1;
 }
 
-int Protein::addHead(NonstandardAminoAcid paa) {
-    cout<<"Head func "<<paa.getName()<<endl;
-    if (!(paa.getName()=="")) {
-        cout<<"Head func "<<paa.getName()<<endl;
-
-        cout<<"The Head function start"<<endl;
-        listaa * temp = new listaa;
-        temp->prev = 0;
-        temp->field = paa;
-        temp->next = Head;
-        if(Head != 0) Head->prev = temp;
-
-        // Если элемент первый, то он одновременно и голова и хвост
-        if(this->size == 0) Head = Tail = temp;
-        else Head = temp; // иначе новый элемент - головной
-
-        iterator.first++;
-        this->iterator.second = paa;
-        this->size++;
-
-        cout<<"The Head function end"<<endl;
-        return 0;
-    }
-    return 1;
-}
-
 int Protein::addHead(ProteinogenicAminoAcid paa) {
     if (!(paa.getName()=="")) {
 
@@ -120,38 +94,9 @@ int Protein::addHead(ProteinogenicAminoAcid paa) {
     }
     return 1;
 }
-int Protein::addTail(NonstandardAminoAcid paa) {
-    cout<<"Tail func "<<paa.getName()<<endl;
-    if (!(paa.getName()=="")) {
-        cout<<"Tail func "<<paa.getName()<<endl;
-        cout<<"The Tail function start"<<endl;
-        listaa *temp = new listaa;
-        temp->next = NULL;
-        temp->fieldnaa = paa;
-
-        if (this->Head != NULL) {
-            temp->prev = this->Tail;
-            this->Tail->next = temp;
-            this->Tail = temp;
-        } else {
-            temp->prev = NULL;
-            this->Head = this->Tail = temp;
-        }
-
-        cout<<temp->fieldnaa.getName()<<endl;
-        iterator.first++;
-        cout<<this->iterator.second.getName()<<endl;
-        this->iterator.second = paa;
-        this->size++;
-        cout<<this->iterator.second.getName()<<endl;
-
-        cout<<"The Tail function end\n"<<endl;
-        return 0;
-    }
-    return 1;
-}
 
 int Protein::addTail(ProteinogenicAminoAcid paa) {
+    cout << "+++++"<<paa.getName()<<endl;
     if (!(paa.getName()=="")) {
         cout<<"The Tail function start"<<endl;
         listaa *temp = new listaa;
