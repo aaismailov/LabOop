@@ -6,10 +6,10 @@
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include "viewwindow.h"
-#include "firstwindow.h"
 #include "addnaa.h"
 #include "addpaa.h"
 #include <fstream>
+#include <sstream>
 
 FirstWindow::FirstWindow(QWidget *parent) :
     QDialog(parent),
@@ -24,7 +24,7 @@ FirstWindow::~FirstWindow() {
 
 void saveData(Protein First)
 {
-    ofstream fout("saveProtein.txt");
+    ofstream fout("saveProtein.txt", std::ofstream::out | std::ofstream::trunc);
     for(int i = 0;i < First.getSize();i++)
     {
         First.setIteratorIndex(i);
@@ -33,22 +33,54 @@ void saveData(Protein First)
     fout.close();
 }
 
+Protein getAa(Protein p){
+    ifstream file("saveAa.txt");
+    string name;
+    char symbol;
+    string pos;
+    if (file.is_open()) {
+        file>>name>>pos>>symbol;
+        file.close();
+    }
+    cout<<name<<" "<<symbol<<" "<< pos<<endl;
+    if (symbol == '\0'){
+        NonstandardAminoAcid naa(name);
+        if (pos == "Head") p.addHead(naa), cout<<"Naa: "<<pos<<endl;
+        else if (pos == "Tail") p.addTail(naa), cout<<"Naa: "<<pos<<endl;
+        else p.addElem(naa, atoi(pos.c_str())), cout<<"Naa: "<<pos<<endl;
+        } else {
+            ProteinogenicAminoAcid paa(name, symbol);
+            if (!(paa.getName() == "" && paa.getSymbol() == '\0') && (paa.getSymbol()>64)&&(paa.getSymbol()<91)){
+                if (pos == "Head") p.addHead(paa), cout<<"Paa: "<<pos<<endl;
+                else if (pos == "Tail") p.addTail(paa), cout<<"Paa: "<<pos<<endl;
+                else p.addElem(paa, atoi(pos.c_str())), cout<<"Paa: "<<pos<<endl;
+
+            }
+    }
+    return p;
+}
+
+// Add paa
 void FirstWindow::on_pushButton_13_clicked()
 {
     AddPaa window;
     window.setModal(true);
     window.show();
     window.exec();
+    this->First = getAa(this->First);
 }
 
+// Add naa
 void FirstWindow::on_pushButton_14_clicked()
 {
     AddNaa window;
     window.setModal(true);
     window.show();
     window.exec();
+    this->First = getAa(this->First);
 }
 
+// Delete aa in pos
 void FirstWindow::on_pushButton_4_clicked()
 {
     if(this->First.getIteratorIndex() && this->First.getSize())
@@ -61,47 +93,52 @@ void FirstWindow::on_pushButton_4_clicked()
         QMessageBox::critical(this,"Delete aa", "There is no data to delete");
 }
 
+// Delete Protein
 void FirstWindow::on_pushButton_5_clicked()
 {
     if(this->First.getIteratorIndex() && this->First.getSize())
     {
         this->First.clean();
-        QMessageBox::information(this, "Clean", "You delete protein 1");
+        QMessageBox::information(this, "Clean", "You delete protein");
     }
     else
-        QMessageBox::critical(this,"Clear", "There is no data to clean");
+        QMessageBox::critical(this,"Clean", "There is no data to clean");
 }
 
+// Size
 void FirstWindow::on_pushButton_6_clicked()
 {
     if(this->First.getIteratorIndex() && this->First.getSize())
     {
-        QMessageBox::information(this, "Size", "The size of the protein 1 is " + QString::number(this->First.getSize()));
+        QMessageBox::information(this, "Size", "The size of the protein is " + QString::number(this->First.getSize()));
     }
     else
-        QMessageBox::critical(this,"Size", "There is no protein 1");
+        QMessageBox::critical(this,"Size", "There is no protein");
 }
 
+// View
 void FirstWindow::on_pushButton_7_clicked()
 {
-
     if(this->First.getIteratorIndex() && this->First.getSize())
     {
         ViewWindow window;
         window.setModal(true);
-        window.insertData(&this->First, this->First.getSize());
+        window.insertData(this->First, this->First.getSize());
+        window.show();
         window.exec();
     }
     else
         QMessageBox::critical(this, "Show", "There is no data to show");
 }
 
+// Input from file
 void FirstWindow::on_pushButton_8_clicked()
 {
     this->First.fromFile(ui->lineEdit_6->text().toStdString());
     QMessageBox::information(this, "Input from file", "Success input from file");
 }
 
+// Output to file
 void FirstWindow::on_pushButton_9_clicked()
 {
     if(this->First.getIteratorIndex() && this->First.getSize())
@@ -113,6 +150,7 @@ void FirstWindow::on_pushButton_9_clicked()
         QMessageBox::critical(this,"Output to file", "There is no protein");
 }
 
+// Back
 void FirstWindow::on_pushButton_clicked()
 {
     QMessageBox::StandardButton save = QMessageBox::question(this, "Save", "Save collection?", QMessageBox::Yes | QMessageBox::No);

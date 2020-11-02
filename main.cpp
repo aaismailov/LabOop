@@ -14,14 +14,17 @@ using namespace std;
 int toScreen(Protein p) {
     for (int i = 1; i < int(p.getSize()+1); i++) {
         p.setIteratorIndex(i);
-        cout << i << ") Name: " << p.getIteratorValue().getName() << " Symbol: " << p.getIteratorValue().getSymbol()<< endl;
+        if (p.getIteratorValue().getSymbol() == '\0') {
+            cout << i << ") Name: " << p.getIteratorValue().getName()<< endl;
+        } else {
+            cout << i << ") Name: " << p.getIteratorValue().getName() << " Symbol: " << p.getIteratorValue().getSymbol()<< endl;
+        }
     }
     cout<<"\n"<<endl;
     return 0; // для проверки через assert
 }
 int main(int argc, char *argv[])
 {
-    cout<<"DTGUID_________________________________"<<endl;
     // Test ProteinogenicAminoAcid
     ProteinogenicAminoAcid paa1;
     assert(paa1.getName()=="");
@@ -90,10 +93,8 @@ int main(int argc, char *argv[])
     pToFile.addElem(paa6, 1);
     pToFile.addElem(paa7, 2);
     assert(pToFile.toFile("C:\\Qt\\Projects\\oop1\\BaseWindow\\to.txt")==0);
-    toScreen(pToFile);
     Protein pFromFile;
     assert(pFromFile.fromFile("C:\\Qt\\Projects\\oop1\\BaseWindow\\to.txt")==0);
-    toScreen(pFromFile);
     assert(pFromFile == pToFile); //Проверка на равенство записанной в файл и полученной из файла коллекций
 
     // Тестирование операции сложения, возвращающей результат сложения (с пересечением) двух белков (условие задачи)
@@ -104,27 +105,15 @@ int main(int argc, char *argv[])
     ProteinogenicAminoAcid paa11("Cysteine", 'C');
     Protein pFirst; // IMT
     pFirst.addElem(paa8, 1);
-    toScreen(pFirst);
     pFirst.addElem(paa9, 2);
-    toScreen(pFirst);
     pFirst.addTail(naa4);
-    cout<<"-------"<<paa9.getName()<<endl;
-    //pFirst.setIteratorIndex(1);
-    cout<<pFirst.getIteratorValue().getName()<<endl;
-    toScreen(pFirst);
-    cout<<pFirst.getIteratorValue().getName()<<endl;
     Protein pSecond; // MTC
     pSecond.addElem(paa9, 1);
-    cout<<pSecond.getIteratorValue().getName()<<endl;
-    // pSecond.addElem(naa4, 2);
-    pSecond.addElem(paa11, 2);
-    cout<<pSecond.getIteratorValue().getName()<<endl;
+    pSecond.addElem(naa4, 2);
+    pSecond.addElem(paa11, 3);
     Protein pThird; // CT
     pThird.addElem(paa11, 1);
-    // pThird.addElem(naa4, 2);
-    // toScreen(pFirst);
-    toScreen(pSecond);
-    toScreen(pThird);
+    pThird.addElem(naa4, 2);
     assert(toScreen(pFirst+pSecond)==0); // pFirst+pSecond = IMT+MTC = IMTC
     assert(toScreen(pSecond+pThird)==0); // pSecond+pThird = MTC+CT = MTCT
     assert(toScreen(pThird+pFirst)==0); // pThird+pFirst = CT+IMT = CTIMT

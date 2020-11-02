@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>462</width>
-    <height>665</height>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>10</x>
      <y>0</y>
      <width>441</width>
-     <height>651</height>
+     <height>571</height>
     </rect>
    </property>
    <property name="title">
@@ -69,6 +69,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QPushButton" name="pushButton_13">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Add ProteinogenicAminoAcid&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Add paa</string>
           </property>
@@ -76,6 +79,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_14">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Add NonstandardAminoAcid&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Add naa</string>
           </property>
@@ -91,6 +97,9 @@
            <font>
             <pointsize>9</pointsize>
            </font>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete AminoAcid in position&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Delete aa in position:</string>
@@ -274,29 +283,11 @@
      </layout>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_28">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>420</y>
-      <width>221</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Protein1 + Protein2</string>
-    </property>
-   </widget>
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>490</y>
+      <y>430</y>
       <width>291</width>
       <height>81</height>
      </rect>
@@ -314,7 +305,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>600</y>
+      <y>520</y>
       <width>112</width>
       <height>34</height>
      </rect>

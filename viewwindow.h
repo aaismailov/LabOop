@@ -14,7 +14,7 @@ class ViewWindow : public QDialog
 
 public:
     explicit ViewWindow(QWidget *parent = nullptr);
-    void insertData(Protein* collection, int size) const;
+    void insertData(Protein collection, int size) const;
     ~ViewWindow();
 
 private slots:

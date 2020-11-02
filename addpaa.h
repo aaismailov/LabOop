@@ -2,6 +2,7 @@
 #define ADDPAA_H
 
 #include <QDialog>
+#include "ProteinogenicAminoAcid.h"
 
 namespace Ui {
 class AddPaa;
@@ -14,6 +15,15 @@ class AddPaa : public QDialog
 public:
     explicit AddPaa(QWidget *parent = nullptr);
     ~AddPaa();
+
+private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
 
 private:
     Ui::AddPaa *ui;

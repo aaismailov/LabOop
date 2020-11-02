@@ -29,23 +29,16 @@ Protein::Protein(const Protein& p) {
 
 
 int Protein::addElem(ProteinogenicAminoAcid paa, int pos) {
-    cout<<"Add func"<<endl;
-    cout<<"------"<<paa.getName()<<endl;
     if (!(paa.getName()=="")) {
-
-        cout<<"Add start"<<endl;
         if(pos == this->size+1) { // Добавление в конец списка
-            cout<<"The Tail"<<endl;
             addTail(paa);
 
             return 0;
         } else if(pos == 1) { // Добавление в начало списка
-            cout<<"The Head"<<endl;
             addHead(paa);
 
             return 0;
         }
-        cout<<"The start"<<endl;
         // Добавление в произвольное место, кроме начало и конца списка
         int i = 1;
         listaa * Ins = Head;
@@ -67,14 +60,11 @@ int Protein::addElem(ProteinogenicAminoAcid paa, int pos) {
         this->size++;
         return 0;
     }
-    cout<<"Add func"<<endl;
     return 1;
 }
 
 int Protein::addHead(ProteinogenicAminoAcid paa) {
     if (!(paa.getName()=="")) {
-
-        cout<<"The Head function start"<<endl;
         listaa * temp = new listaa;
         temp->prev = 0;
         temp->field = paa;
@@ -89,16 +79,13 @@ int Protein::addHead(ProteinogenicAminoAcid paa) {
         this->iterator.second = paa;
         this->size++;
 
-        cout<<"The Head function end"<<endl;
         return 0;
     }
     return 1;
 }
 
 int Protein::addTail(ProteinogenicAminoAcid paa) {
-    cout << "+++++"<<paa.getName()<<endl;
     if (!(paa.getName()=="")) {
-        cout<<"The Tail function start"<<endl;
         listaa *temp = new listaa;
         temp->next = NULL;
         temp->field = paa;
@@ -115,8 +102,6 @@ int Protein::addTail(ProteinogenicAminoAcid paa) {
         iterator.first++;
         this->iterator.second = paa;
         this->size++;
-
-        cout<<"The Tail function end\n"<<endl;
         return 0;
     }
     return 1;
