@@ -29,7 +29,7 @@ void saveData2(Protein Second)
     ofstream fout("saveProtein2.txt", std::ofstream::out | std::ofstream::trunc);
     for(int i = 0;i < Second.getSize();i++)
     {
-        Second.setIteratorIndex(i);
+        Second.setIteratorIndex(i+1);
         fout << Second.getIteratorValue().getName() << " " << Second.getIteratorValue().getSymbol()<< endl;
     }
     fout.close();

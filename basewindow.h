@@ -21,7 +21,11 @@ private slots:
 
     void on_pushSecondProteinButton_clicked();
 
+    void on_pushButton_clicked();
+
 private:
+    Protein First;
+    Protein Second;
     Ui::BaseWindow *ui;
 };
 #endif // BASEWINDOW_H
