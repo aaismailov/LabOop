@@ -1,23 +1,22 @@
 #ifndef PROTEINOGENIC_AMINO_ACID_H
 #define PROTEINOGENIC_AMINO_ACID_H
-
 #include <iostream>
 
 using namespace std;
 
-class ProteinogenicAminoAcid
-{
+class ProteinogenicAminoAcid {
 public:
-    ProteinogenicAminoAcid(string name, char symbol);
-    ProteinogenicAminoAcid(const ProteinogenicAminoAcid& paa);
     ProteinogenicAminoAcid();
+    ProteinogenicAminoAcid(const string &name, const char &symbol);
+    ProteinogenicAminoAcid(const ProteinogenicAminoAcid& paa);
 
-    string getName();
-    void setName(string name);
+    const string& getName() const;
+    void setName(const string &name);
 
-    char getSymbol();
-    void setSymbol(char symbol);
+    const char& getSymbol() const;
+    void setSymbol(const char &symbol);
 
+    virtual string getData(const string& type) const;
 private:
     string name;
     char symbol;

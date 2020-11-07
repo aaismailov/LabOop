@@ -44,7 +44,3 @@ void AddNaa::on_pushButton_3_clicked() {
     if (name == "") QMessageBox::critical(this,"Add naa", "Name is empty");
     else saveNaa(name, pos), this->close();
 }
-
-void AddNaa::on_pushButton_4_clicked() {
-    this->close();
-}

@@ -16,21 +16,13 @@ BaseWindow::BaseWindow(QWidget *parent)
     , ui(new Ui::BaseWindow)
 {
     ui->setupUi(this);
+    this->First.fromFile("saveProtein.txt");
+    this->Second.fromFile("saveProtein2.txt");
 }
 
 BaseWindow::~BaseWindow()
 {
     delete ui;
-}
-
-Protein getProtein(Protein p){
-    p.fromFile("saveProtein.txt");
-    return p;
-}
-
-Protein getProtein2(Protein p2){
-    p2.fromFile("saveProtein2.txt");
-    return p2;
 }
 
 // Protein 1
@@ -39,7 +31,7 @@ void BaseWindow::on_pushFirstProteinButton_clicked()
     FirstWindow window;
     window.setModal(true);
     window.exec();
-    this->First = getProtein(this->First);
+    this->First.fromFile("saveProtein.txt");
 }
 
 // Protein 2
@@ -48,7 +40,7 @@ void BaseWindow::on_pushSecondProteinButton_clicked()
     SecondWindow window;
     window.setModal(true);
     window.exec();
-    this->Second = getProtein2(this->Second);
+    this->Second.fromFile("saveProtein2.txt");
 }
 
 // Сложение белков

@@ -64,7 +64,3 @@ void AddPaa::on_pushButton_3_clicked() {
         QMessageBox::critical(this,"Add paa", "The symbol must be a capital latin letter");
     else savePaa(name, pos, symbol), this->close();
 }
-
-void AddPaa::on_pushButton_4_clicked() {
-    this->close();
-}

@@ -14,11 +14,11 @@ public:
     Protein();
     Protein(const Protein& p);
 
-    int addElem(ProteinogenicAminoAcid paa, int number);
-    int addHead(ProteinogenicAminoAcid paa);
-    int addTail(ProteinogenicAminoAcid paa);
+    int addElem(ProteinogenicAminoAcid &paa, const int &number);
+    int addHead(ProteinogenicAminoAcid &paa);
+    int addTail(ProteinogenicAminoAcid &paa);
 
-    int remove(int index);
+    int remove(const int &index);
     int clean();
 
     int getSize();

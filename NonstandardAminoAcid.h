@@ -10,8 +10,10 @@ class NonstandardAminoAcid: public ProteinogenicAminoAcid
 {
 public:
     NonstandardAminoAcid();
-    NonstandardAminoAcid(string name);
+    NonstandardAminoAcid(const string &name);
     NonstandardAminoAcid(const NonstandardAminoAcid& naa);
+
+    string getData(const string &type) const override;
 };
 
 #endif // NONSTANDARDAMINOACID_H

@@ -28,7 +28,7 @@ Protein::Protein(const Protein& p) {
 }
 
 
-int Protein::addElem(ProteinogenicAminoAcid paa, int pos) {
+int Protein::addElem(ProteinogenicAminoAcid &paa, const int &pos) {
     if (!(paa.getName()=="")) {
         if(pos == this->size+1) { // Добавление в конец списка
             addTail(paa);
@@ -63,7 +63,7 @@ int Protein::addElem(ProteinogenicAminoAcid paa, int pos) {
     return 1;
 }
 
-int Protein::addHead(ProteinogenicAminoAcid paa) {
+int Protein::addHead(ProteinogenicAminoAcid &paa) {
     if (!(paa.getName()=="")) {
         listaa * temp = new listaa;
         temp->prev = 0;
@@ -84,7 +84,7 @@ int Protein::addHead(ProteinogenicAminoAcid paa) {
     return 1;
 }
 
-int Protein::addTail(ProteinogenicAminoAcid paa) {
+int Protein::addTail(ProteinogenicAminoAcid &paa) {
     if (!(paa.getName()=="")) {
         listaa *temp = new listaa;
         temp->next = NULL;
@@ -107,7 +107,7 @@ int Protein::addTail(ProteinogenicAminoAcid paa) {
     return 1;
 }
 
-int Protein::remove(int index) {
+int Protein::remove(const int &index) {
     if ((index == 1) and (this->Head->next)) { //Если удаляем первый, но есть и другие
         listaa *temp = this->Head;
         this->Head = this->Head->next;
@@ -235,7 +235,7 @@ int Protein::toFile(const string &fname) {
 
     for (int i = 1; i < int(this->size+1); i++){
         this->setIteratorIndex(i);
-        fout <<this->getIteratorValue().getName() << " " << this->getIteratorValue().getSymbol()<< endl;
+        fout <<this->getIteratorValue().getName() << " " << this->getIteratorValue().getData("symbol")<< endl;
     }
     fout.close();
     return 0;

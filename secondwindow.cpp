@@ -13,29 +13,34 @@
 
 SecondWindow::SecondWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::SecondWindow)
-{
+    ui(new Ui::SecondWindow) {
     ui->setupUi(this);
     this->Second.fromFile("saveProtein2.txt");
+    if (!(this->Second.getIteratorIndex() && this->Second.getSize())) {
+        ui->lineEdit_5->setEnabled(false);
+        ui->lineEdit_7->setEnabled(false);
+        ui->pushButton_4->setDisabled(true);
+        ui->pushButton_5->setDisabled(true);
+        ui->pushButton_6->setDisabled(true);
+        ui->pushButton_7->setDisabled(true);
+        ui->pushButton_9->setDisabled(true);
+    }
 }
 
-SecondWindow::~SecondWindow()
-{
+SecondWindow::~SecondWindow() {
     delete ui;
 }
 
-void saveData2(Protein Second)
-{
+void saveData2(Protein &Second) {
     ofstream fout("saveProtein2.txt", std::ofstream::out | std::ofstream::trunc);
-    for(int i = 0;i < Second.getSize();i++)
-    {
+    for(int i = 0;i < Second.getSize();i++) {
         Second.setIteratorIndex(i+1);
         fout << Second.getIteratorValue().getName() << " " << Second.getIteratorValue().getSymbol()<< endl;
     }
     fout.close();
 }
 
-Protein getAa2(Protein p){
+Protein getAa2(Protein &p) {
     ifstream file("saveAa.txt");
     string name;
     char symbol;
@@ -44,73 +49,91 @@ Protein getAa2(Protein p){
         file>>name>>pos>>symbol;
         file.close();
     }
-    if (symbol == '\0'){
+    if (symbol == '\0') {
         NonstandardAminoAcid naa(name);
-        if (pos == "Head") p.addHead(naa), cout<<"Naa: "<<pos<<endl;
-        else if (pos == "Tail") p.addTail(naa), cout<<"Naa: "<<pos<<endl;
-        else p.addElem(naa, atoi(pos.c_str())), cout<<"Naa: "<<pos<<endl;
-        } else {
-            ProteinogenicAminoAcid paa(name, symbol);
-            if (!(paa.getName() == "" && paa.getSymbol() == '\0') && (paa.getSymbol()>64)&&(paa.getSymbol()<91)){
-                if (pos == "Head") p.addHead(paa), cout<<"Paa: "<<pos<<endl;
-                else if (pos == "Tail") p.addTail(paa), cout<<"Paa: "<<pos<<endl;
-                else p.addElem(paa, atoi(pos.c_str())), cout<<"Paa: "<<pos<<endl;
-
-            }
+        if (pos == "Head") p.addHead(naa);
+        else if (pos == "Tail") p.addTail(naa);
+        else p.addElem(naa, atoi(pos.c_str()));
+    } else {
+        ProteinogenicAminoAcid paa(name, symbol);
+        if (!(paa.getName() == "" && paa.getSymbol() == '\0') && (paa.getSymbol()>64)&&(paa.getSymbol()<91)){
+            if (pos == "Head") p.addHead(paa);
+            else if (pos == "Tail") p.addTail(paa);
+            else p.addElem(paa, atoi(pos.c_str()));
+        }
     }
     return p;
 }
 
 // Add paa
-void SecondWindow::on_pushButton_13_clicked()
-{
+void SecondWindow::on_pushButton_13_clicked() {
     AddPaa window;
     window.setModal(true);
     window.show();
     window.exec();
     this->Second = getAa2(this->Second);
+    ui->lineEdit_5->setEnabled(true);
+    ui->lineEdit_7->setEnabled(true);
+    ui->pushButton_4->setDisabled(false);
+    ui->pushButton_5->setDisabled(false);
+    ui->pushButton_6->setDisabled(false);
+    ui->pushButton_7->setDisabled(false);
+    ui->pushButton_9->setDisabled(false);
 }
 
 // Add naa
-void SecondWindow::on_pushButton_14_clicked()
-{
+void SecondWindow::on_pushButton_14_clicked() {
     AddNaa window;
     window.setModal(true);
     window.show();
     window.exec();
     this->Second = getAa2(this->Second);
+    ui->lineEdit_5->setEnabled(true);
+    ui->lineEdit_7->setEnabled(true);
+    ui->pushButton_4->setDisabled(false);
+    ui->pushButton_5->setDisabled(false);
+    ui->pushButton_6->setDisabled(false);
+    ui->pushButton_7->setDisabled(false);
+    ui->pushButton_9->setDisabled(false);
 }
 
 // Delete aa in pos
-void SecondWindow::on_pushButton_4_clicked()
-{
-    if(this->Second.getIteratorIndex() && this->Second.getSize())
-    {
+void SecondWindow::on_pushButton_4_clicked() {
+    if (this->Second.getIteratorIndex() && this->Second.getSize()) {
         std:: string pos  = ui->lineEdit_5->text().toStdString();
+        ui->lineEdit_5->clear();
         this->Second.remove(atoi(pos.c_str()));
+        if (!(this->Second.getIteratorIndex() && this->Second.getSize())) {
+            ui->lineEdit_5->setEnabled(false);
+            ui->lineEdit_7->setEnabled(false);
+            ui->pushButton_4->setDisabled(true);
+            ui->pushButton_5->setDisabled(true);
+            ui->pushButton_6->setDisabled(true);
+            ui->pushButton_7->setDisabled(true);
+            ui->pushButton_9->setDisabled(true);
+        }
         QMessageBox::information(this, "Delete aa", "You delete aa");
     }
-    else
-        QMessageBox::critical(this,"Delete aa", "There is no data to delete");
 }
 
 // Delete Protein
-void SecondWindow::on_pushButton_5_clicked()
-{
-    if(this->Second.getIteratorIndex() && this->Second.getSize())
-    {
+void SecondWindow::on_pushButton_5_clicked() {
+    if (this->Second.getIteratorIndex() && this->Second.getSize()) {
         this->Second.clean();
+        ui->lineEdit_5->setEnabled(false);
+        ui->lineEdit_7->setEnabled(false);
+        ui->pushButton_4->setDisabled(true);
+        ui->pushButton_5->setDisabled(true);
+        ui->pushButton_6->setDisabled(true);
+        ui->pushButton_7->setDisabled(true);
+        ui->pushButton_9->setDisabled(true);
         QMessageBox::information(this, "Clean", "You delete protein");
     }
-    else
-        QMessageBox::critical(this,"Clean", "There is no data to clean");
 }
 
 // Size
-void SecondWindow::on_pushButton_6_clicked()
-{
-    if(this->Second.getIteratorIndex() && this->Second.getSize())
-    {
+void SecondWindow::on_pushButton_6_clicked() {
+    if(this->Second.getIteratorIndex() && this->Second.getSize()) {
         QMessageBox::information(this, "Size", "The size of the protein is " + QString::number(this->Second.getSize()));
     }
     else
@@ -118,10 +141,8 @@ void SecondWindow::on_pushButton_6_clicked()
 }
 
 // View
-void SecondWindow::on_pushButton_7_clicked()
-{
-    if(this->Second.getIteratorIndex() && this->Second.getSize())
-    {
+void SecondWindow::on_pushButton_7_clicked() {
+    if(this->Second.getIteratorIndex() && this->Second.getSize()) {
         ViewWindow window;
         window.setModal(true);
         window.insertData(this->Second, this->Second.getSize());
@@ -133,30 +154,32 @@ void SecondWindow::on_pushButton_7_clicked()
 }
 
 // Input from file
-void SecondWindow::on_pushButton_8_clicked()
-{
+void SecondWindow::on_pushButton_8_clicked() {
     this->Second.fromFile(ui->lineEdit_6->text().toStdString());
+    ui->lineEdit_6->clear();
+    ui->lineEdit_5->setEnabled(true);
+    ui->lineEdit_7->setEnabled(true);
+    ui->pushButton_4->setDisabled(false);
+    ui->pushButton_5->setDisabled(false);
+    ui->pushButton_6->setDisabled(false);
+    ui->pushButton_7->setDisabled(false);
+    ui->pushButton_9->setDisabled(false);
     QMessageBox::information(this, "Input from file", "Success input from file");
 }
 
 // Output to file
-void SecondWindow::on_pushButton_9_clicked()
-{
-    if(this->Second.getIteratorIndex() && this->Second.getSize())
-    {
+void SecondWindow::on_pushButton_9_clicked() {
+    if(this->Second.getIteratorIndex() && this->Second.getSize()) {
         this->Second.toFile(ui->lineEdit_7->text().toStdString());
+        ui->lineEdit_7->clear();
         QMessageBox::information(this, "Output to file", "Success output to file");
     }
-    else
-        QMessageBox::critical(this,"Output to file", "There is no protein");
 }
 
 // Back
-void SecondWindow::on_pushButton_clicked()
-{
+void SecondWindow::on_pushButton_clicked() {
     QMessageBox::StandardButton save = QMessageBox::question(this, "Save", "Save collection?", QMessageBox::Yes | QMessageBox::No);
-    if(save == QMessageBox::No)
-    {
+    if(save == QMessageBox::No) {
         Second.clean();
     }
     saveData2(Second);
