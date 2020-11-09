@@ -48,6 +48,8 @@ Protein getAa(Protein &p) {
     if (file.is_open()) {
         file>>name>>pos>>symbol;
         file.close();
+        ofstream fout("saveAa.txt", std::ofstream::out | std::ofstream::trunc);
+        fout.close();
     }
     if (symbol == '\0'){
         NonstandardAminoAcid naa(name);
